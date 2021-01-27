@@ -64,6 +64,26 @@ document.getElementById("updatebtn").addEventListener("click", (data) => {
                 document.getElementById("notes").append(list);
             });
         });
-    document.getElementById("addnote").value = "";
+    document.getElementById("updateid").value = "";
+    document.getElementById("updatenote").value = "";
+    }
+});
+
+document.getElementById("searchbtn").addEventListener("click", (data) => {
+    var id = document.getElementById("searchid");
+    if(id.value != ""){
+        fetch("/notes/" + id.value, {
+            method: "GET"
+        }).then((results) => {
+            return results.json();
+        }).then((data) =>{
+            document.getElementById("searchresult").innerHTML = "";
+            data.forEach(element => {
+                var list = document.createElement("li");
+                list.innerHTML = element.note + " (ID: " + element._id + ")";
+                document.getElementById("searchresult").append(list);
+            });
+        });
+    document.getElementById("searchid").value = "";
     }
 });

@@ -24,6 +24,14 @@ app.get("/notes", async (req, res) => {
     }
 });
 
+app.get("/notes/:id", async (req, res) => {
+    try{
+        res.json(await Note.find({_id: req.params.id}));
+    }catch(err){
+        console.error(err);
+    }
+});
+
 app.delete("/notes/:id", async (req, res) => {
     try{
        Note.deleteOne({_id: req.params.id}, (err) =>{
